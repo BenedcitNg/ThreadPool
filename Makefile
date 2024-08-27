@@ -11,16 +11,16 @@ STAGING_DIR:=$(TOPDIR)/staging
 BIN_DIR:=$(STAGING_DIR)/bin
 OBJ_DIR:=$(STAGING_DIR)/obj
 CFLAGS:=-Wall -std=c11
-$(TARGET): dir $(OBJ)
-	$(CC) -o $(BIN_DIR)/$(TARGET) $(OBJ_DIR)/*.o $(CFLAGS)
 
+$(TARGET): dir $(OBJ)
+	$(CC) -o $(BIN_DIR)/$(TARGET) $(OBJ_DIR)/*.o $(CFLAGS) -l$(LIBS) $(CFLAGS)
 
 dir:
 	mkdir $(STAGING_DIR)
 	mkdir $(BIN_DIR)
 	mkdir $(OBJ_DIR)
 $(OBJ): %.o: $(SRC_DIR)/%.c
-	$(CC) -c -o $(OBJ_DIR)/$@ -I$(HEADER_DIR) $< -l$(LIBS) $(CFLAGS)
+	$(CC) -c -o $(OBJ_DIR)/$@ -I$(HEADER_DIR) $< 
 	
 
 .PHONY: clean
